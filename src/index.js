@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Navigation} from './Navigation';
+import News from './News';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+     <BrowserRouter>
+     <App />
+    {/* <Navigation /> */}
+    {/* <News /> */}
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

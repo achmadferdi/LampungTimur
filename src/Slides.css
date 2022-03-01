@@ -1,0 +1,9 @@
+.style-galery{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  .size-img{
+    max-height: 400px;
+    object-fit: cover;
+  }

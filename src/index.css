@@ -11,3 +11,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.main-footer {
+  padding-top: 75px;
+  padding-bottom: 60px;
+}
+.bottom-footer {
+  background-color: #e5e5e5;
+}
+.bottom-footer .container {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.main-footer .container .row p,
+.bottom-footer .container p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.bottom-footer .container {
+  text-align: center;
+}
+.title-footer {
+  margin-bottom: 25px;
+}
+.title-footer h3 {
+  font-weight: 600;
+}
+.background-footer {
+  background: #000d22 none repeat scroll 0 0;
+}
+.Kategori{
+  margin-top: 40px
+  ;
+}
+.Bangsat{
+  margin: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;  
+}
+.a{
+  margin: 10px;
+}
+.b{
+  margin: 10px;
+}
