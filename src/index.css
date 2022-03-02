@@ -56,3 +56,82 @@ code {
 .b{
   margin: 10px;
 }
+/* Gallery Video */
+.wrap-videos {
+  /* width: 100%; */
+  margin: 0 auto;
+  /* display: flex;
+  flex-flow: row wrap;
+  justify-content: center; */
+}
+.tile-videos {
+  width: 400px;
+  height: 300px;
+  /* margin: 10px; */
+  background-color: rgba(2, 11, 20, 0.83);
+  /* display: inline-block; */
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+  /* transition: all 0.4s ease-in; */
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
+  overflow: hidden;
+  color: #fff;
+  /* font-family: 'Roboto'; */
+  margin: 10px;
+  margin-left: 20px;
+}
+.tile-videos .player-wrapper {
+  height: 300px;
+  width: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  /* margin: 10px;
+  margin-right: 30px; */
+}
+.tile-videos .text-videos {
+  /*   z-index:99; */
+  position: absolute;
+  padding: 20px;
+  height: 300px;
+  width: 400px;
+}
+.tile-videos h1 {
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tile-videos .text-videos p {
+  font-weight: 300;
+  margin: 40px 0 0 0;
+  line-height: 25px;
+  /*   opacity:0; */
+  /* transform: translateX(-200px);
+  transition-delay: 0.2s; */
+  font-size: 12px;
+}
+.player-wrapper {
+  opacity: 0.2;
+  position: relative;
+}
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.player-wrapper:hover {
+  background-color: none;
+  opacity: 1;
+}
+.tile-videos:hover .text-videos {
+  display: none;
+}
+.Vido{
+  width: 440px;
+  height: 320px;
+}

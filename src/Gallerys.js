@@ -116,28 +116,40 @@ export const Gallerys = (params) => {
                 ) : <span className='text-black'>Loading....</span>
             }
 
-            {/* {
+            {
+              
               Video != null ?
               Video && Video.map((item, index) =>{
                 return item.image_gallery_item.map((itm, idx) => {
-                  return( */}
-                    <div className="Gal">
-            <LightGallery
-                elementClassNames="custom-wrapper-class"
-                onBeforeSlide={onBeforeSlide}
-                plugins={[ lgThumbnail, lgVideo]}
-                speed={500}
-            >
+                  return(
+        //             <div className="Gal">
+        //     <LightGallery
+        //         elementClassNames="custom-wrapper-class"
+        //         onBeforeSlide={onBeforeSlide}
+        //         plugins={[lgThumbnail, lgVideo]}
+        //     >
+              
+        //         <a className="a" data-src={`https://youtu.be/${itm.video_url}?`}>
+        //             <img className="b" width={400} height={300} 
+        //             alt={itm.description} src={itm.thumbnail_url} />
+        //         </a>
+                
 
-      <a data-lg-size="1280-720" data-pinterest-text="Pin it3" data-tweet-text="lightGallery slide  4" data-src="//www.youtube.com/watch?v=egyIeygdS_E" data-poster="https://img.youtube.com/vi/egyIeygdS_E/maxresdefault.jpg" data-sub-html="<h4>Visual Soundscapes - Mountains | Planet Earth II | BBC America</h4><p>On the heels of Planet Earth II’s record-breaking Emmy nominations, BBC America presents stunning visual soundscapes from the series' amazing habitats.</p>">
-      <img class="img-responsive" src="https://img.youtube.com/vi/egyIeygdS_E/maxresdefault.jpg" />
-                      </a>
-                      
+        //     </LightGallery>
 
-                  </LightGallery>
-
-        </div>
-                  {/* )
+        // </div>
+                    <div className="Vido" key={idx}>
+                    <div className="tile-videos">
+                      <iframe id="player" type="text/html" src={`https://www.youtube.com/embed/${itm.video_url}?`} className="player-wrapper" ></iframe>
+                      {/* <ReactPlayer url="https://www.youtube.com/watch?v=ZuxG5HjqyNg" className="player-wrapper" width="100%" height="100%" controls={true} /> */}
+                      <div className="text-videos">
+                        <h5 style={{ marginTop: '4rem', marginBottom: '0rem', fontSize: '20px' }}>{item.description}</h5>
+                        {/* <h2 className="animate-text-videos">More lorem ipsum bacon ipsum.</h2> */}
+                        <p className="animate-text-videos">{itm.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                  )
                 }
 
                 )
@@ -145,7 +157,7 @@ export const Gallerys = (params) => {
 
               ) : <span className='text-black'>Loading....</span>
 
-            } */}
+            }
 
             
             <Container>

@@ -32,7 +32,7 @@ export const Navigation = (params) => {
       <div className="margin">
         <Row>
           <Col>
-          <img id="center" className="logo-kabupaten" src="Dinkes.svg" />
+          <img id="center" className="logo-kabupaten" src="Dinkes.svg"></img>
           </Col>
         </Row>
       </div>

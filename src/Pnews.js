@@ -8,6 +8,7 @@ import { Container, ListGroup, Badg, Pagination, Badge } from "react-bootstrap";
 import { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
+import moment from "moment/min/moment-with-locales";
 
 export const Pnews = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
@@ -101,9 +102,13 @@ export const Pnews = (params) => {
                           <Card.Img variant = 'top' width={100} height={100} src = {item.image_file_data} />
                           <Card.Body>
                             <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                            <a href="#" className="text-muted">
+                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                            <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
                             <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
 
-                            <Link to="/profile">Selengkapnya....</Link>
+                            <Link to={`/news/DetailArtikel/${item.id}`}>Selengkapnya....</Link>
                           </Card.Body>
                         </Card>
                         </Container>

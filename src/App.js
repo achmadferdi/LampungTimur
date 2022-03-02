@@ -12,6 +12,9 @@ import Pnews from './Pnews';
 import { Sejarah } from './Sejarah';
 import { Gallerys } from './Gallerys';
 import { Dokumen } from './Dokumen';
+import DetailArtikel from './DetailArtikel';
+import { DocumentViewerComponent } from './DocumentViewerComponent';
+
 
 function App() {
   return (
@@ -20,11 +23,13 @@ function App() {
       {/* <News /> */}
        <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="Profile" element={<Profile />} />
-        <Route path="News" element={<Pnews />} />
-        <Route path="Sejarah" element={<Sejarah />} />
-        <Route path="Gallerys" element={<Gallerys />} />
-        <Route path="Dokumen" element={<Dokumen />} />
+        <Route path="profile" element={<Profile />} />
+        <Route exact path="/news" element={<Pnews />} />
+        <Route path="/news/DetailArtikel/:id" element={<DetailArtikel />} />
+        <Route path="sejarah" element={<Sejarah />} />
+        <Route path="gallerys" element={<Gallerys />} />
+        <Route path="dokumen" element={<Dokumen />} />
+        <Route path="/pdf/:slug/:filename" element={<DocumentViewerComponent />} />
       </Routes>
       <Footer />
     </div>

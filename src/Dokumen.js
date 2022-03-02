@@ -33,7 +33,7 @@ export const Dokumen = (params) =>{
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=2&per_page=5&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=5&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           iPages = [];
@@ -68,9 +68,9 @@ export const Dokumen = (params) =>{
                                 <Container>
                                   <ListGroup>
                                   <ListGroup.Item>
-                                    <Link to={itm.dokumen_file_data} target="_blank" download>
+                                    <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>
                                     {itm.dokumen_file_name}
-                                    </Link>
+                                    </a>
                                   </ListGroup.Item>
                                   </ListGroup>
                                 </Container>
