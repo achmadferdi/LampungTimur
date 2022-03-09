@@ -17,12 +17,15 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 // import lgZoom from 'lightgallery/plugins/zoom';
 import lgVideo from 'lightgallery/plugins/video';
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 
 export const GalleryHome = (params) =>{
     const [DataResponse, setDataResponses] = useState(0);
     const axios = require("axios");
     const [BoxAlbum, setBoxAlbum] = useState([]);
+    const dispatch = useDispatch();
     const onBeforeSlide = (detail) => {
         const { index, prevIndex } = detail;
         console.log(index, prevIndex);
@@ -33,6 +36,7 @@ export const GalleryHome = (params) =>{
           .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2")
           .then(function (response) {
             rebuildAlbum(response.data.data.data);
+            dispatch(increment());
           })
           .catch(function (error) {
             console.log(error);

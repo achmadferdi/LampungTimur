@@ -16,12 +16,14 @@ import DetailArtikel from './DetailArtikel';
 import { DocumentViewerComponent } from './DocumentViewerComponent';
 import Pengumuman from './Pengumuman';
 import DetailPengumuman from './DetailPengumuman';
+import Loading from "react-fullscreen-loading";
 
 
 
 function App() {
   return (
     <div className="App">
+      <Loading loading={false} background='#2ecc71' loaderColor='#3498db' />
       <Navigation />
       {/* <News /> */}
        <Routes>

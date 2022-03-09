@@ -9,6 +9,8 @@ import { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 export const PengumumanHome = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
@@ -20,6 +22,7 @@ export const PengumumanHome = (params) => {
     const forceUpdate = useCallback(() => updateState({}), []);
     const [Kategori, setKategori] = useState(0);
     const [Umum, setUmum] = useState(0);
+    const dispatch = useDispatch();
   
     useEffect(() => {
         gettingData(1);
@@ -39,6 +42,7 @@ export const PengumumanHome = (params) => {
         .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3")
         .then(function (response) {
           setDataResponses(response.data.data.data);
+          dispatch(increment());
           iPages = [];
         //   if (tooglePaginate) {
             for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -63,6 +67,7 @@ export const PengumumanHome = (params) => {
         .get("http://adminmesuji.embuncode.com/api/news/categories/2")
         .then(function (response) {
           setKategori(response.data.data);
+          dispatch(increment());
         })
         .catch(function (error) {
           console.log(error);
@@ -74,6 +79,7 @@ export const PengumumanHome = (params) => {
           .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
           .then(function (response) {
             setInstansi(response.data.data);
+            dispatch(increment());
           })
           .catch(function (error) {
             console.log(error);

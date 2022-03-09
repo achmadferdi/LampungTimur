@@ -6,10 +6,13 @@ import Button from "react-bootstrap/Button";
 import "./News.css";
 import { Container } from "react-bootstrap";
 import moment from "moment/min/moment-with-locales";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 export const News = (params) => {
   const [DataResponse, setDataResponses] = useState(0);
   const axios = require("axios");
+  const dispatch = useDispatch();
   const content =
     "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.";
   const MAX_LENGTH = 150;
@@ -19,6 +22,7 @@ export const News = (params) => {
       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2&sort_by=created_at")
       .then(function (response) {
         setDataResponses(response.data.data.data);
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);

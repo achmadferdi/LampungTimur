@@ -1,17 +1,21 @@
 import Carousel from 'react-bootstrap/Carousel';
 import React, { Fragment, useState, useEffect } from "react";
 import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 // import dummySlide from '../image/dummySlide.png';
 
 function Slides() {
   const [DataResponse, setDataResponses] = useState(0);
   const axios = require("axios");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2")
       .then(function (response) {
         setDataResponses(response.data.data.data);
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);

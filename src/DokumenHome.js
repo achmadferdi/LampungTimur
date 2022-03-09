@@ -9,6 +9,8 @@ import { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import moment from "moment/min/moment-with-locales";
 // import PDFViewer from 'pdf-viewer-reactjs';
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 export const DokumenHome = (params) =>{
     const [DataResponse, setDataResponses] = useState(0);
@@ -17,6 +19,7 @@ export const DokumenHome = (params) =>{
     let iPages = [];
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -37,6 +40,7 @@ export const DokumenHome = (params) =>{
         .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=3")
         .then(function (response) {
           setDataResponses(response.data.data.data);
+          dispatch(increment());
           iPages = [];
         //   if (tooglePaginate) {
             for (let number = 1; number <= response.data.data.last_page; number++) {
