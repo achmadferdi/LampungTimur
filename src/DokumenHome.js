@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import moment from "moment/min/moment-with-locales";
 // import PDFViewer from 'pdf-viewer-reactjs';
 
-export const Dokumen = (params) =>{
+export const DokumenHome = (params) =>{
     const [DataResponse, setDataResponses] = useState(0);
     const axios = require("axios");
     const [IPages, setIPages] = useState([]);
@@ -34,7 +34,7 @@ export const Dokumen = (params) =>{
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=5&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=3")
         .then(function (response) {
           setDataResponses(response.data.data.data);
           iPages = [];
@@ -58,7 +58,7 @@ export const Dokumen = (params) =>{
 
     return(
         <Fragment>
-            <Row>
+            <Row className="Dokhom">
                 <Container>
                     <h3>Dokumen</h3>
                 </Container>

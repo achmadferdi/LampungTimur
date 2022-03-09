@@ -38,7 +38,7 @@ code {
   font-weight: 600;
 }
 .background-footer {
-  background: #000d22 none repeat scroll 0 0;
+  background: lightskyblue none repeat scroll 0 0;
 }
 .Kategori{
   margin-top: 40px
@@ -50,11 +50,35 @@ code {
   flex-flow: row wrap;
   justify-content: center;  
 }
+.Bangsats{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+}
+.Galtext{
+  margin-top: 30px;
+  text-align: center;
+}
 .a{
   margin: 10px;
 }
 .b{
   margin: 10px;
+  width: 400px;
+  height: 300px;
+}
+.c{
+  margin: 10px;
+  width: 392px;
+  height: 292px;
+}
+.GalFoto{
+  text-align: center;
+  margin-top: 30px;
+}
+.GalVideo{
+  text-align: center;
+  margin-top: 30px;
 }
 /* Gallery Video */
 .wrap-videos {
@@ -134,4 +158,115 @@ code {
 .Vido{
   width: 440px;
   height: 320px;
+}
+.Tuf{
+  color: black;
+}
+.text_grey {
+  color: grey !IMportant;
+}
+
+.media-body a {
+  color: #0072c5;
+}
+
+.text_blue {
+  color: #0072c5;
+}
+
+.badge-primary {
+  background-color: #a9d040;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  text-shadow: 1px 1px 1px grey;
+}
+
+.offerList .media {
+  border-bottom: 1px solid #ececec;
+  margin-bottom: 10px;
+}
+.image-dok{
+  width: 50px;
+  float: left;
+  margin-right: 10px;
+}
+.Navigasi{
+  background-color: lightskyblue !important;
+}
+.email{
+  margin-top: 20px;
+  float: left;
+}
+.mail{
+  margin-top: 20px;
+  margin-bottom: 0.1rem;
+  margin-left: 5px !important;
+  width: 175px;
+}
+.surel{
+  font-size: 1rem;
+  margin-left: 5px !important;
+  text-decoration: underline;
+}
+.logmail{
+  flex: 0.1  0 0 !important;
+}
+.logphone{
+  flex: 0.1 0 0 !important;
+  margin-right: 175px;
+}
+.tag-p{
+  margin-top: 10px !important;
+  font-style: italic !important;
+  text-align: center !important;
+  font-size: large !important;
+}
+.penggam{
+  float: left;
+}
+.Pengtext{
+  text-align: center;
+}
+.seluruh-pengumuman{
+  margin-top: 40px !important;
+}
+.namakepala{
+  font-size: larger;
+  text-align: center;
+}
+.KepalaDinas{
+  margin-top: 40px;
+}
+.Dokhom{
+  margin-top: 110px !important;
+}
+.stylecard{
+  border: 0px solid rgba(0,0,0,.125) !important;
+  border-radius: 0rem !important;
+}
+.text-black{
+  text-align: center;
+}
+.logokabupaten{
+  width: 85px;
+  height: 85px;
+  float: left;
+}
+.Logtext{
+  font-size: larger;
+  width: 270px;
+  margin-top: 15px;
+}
+div#root{
+  overflow: hidden;
+}
+.mb{
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+.placehold{
+  width: 80% !important;
 }

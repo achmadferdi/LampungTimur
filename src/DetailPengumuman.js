@@ -1,6 +1,6 @@
 import React from "react";
 // import "./DetailArtikel.css";
-import { Card, Container, Col, Row, TabContainer } from "react-bootstrap";
+import { Card, Container, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment/min/moment-with-locales";
@@ -13,7 +13,7 @@ const DetailArtikel = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article/" + id)
+      .get("http://adminmesuji.embuncode.com/api/news/" + id)
       .then(function (response) {
         console.log("console detail: " + response.data.data);
         setDataDetailArtikel(response.data.data);

@@ -10,6 +10,7 @@ import { Container } from "react-bootstrap";
 
 export const Navigation = (params) => {
   const [DataResponse, setDataResponses] = useState(0);
+  const [Instansi, setInstansi] = useState(0);
   const axios = require("axios");
 
   
@@ -23,6 +24,17 @@ export const Navigation = (params) => {
         console.log(error);
       });
   }, []);
+  
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/instansi/detail/5")
+      .then(function (response) {
+        setInstansi(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
 
   return (
@@ -30,14 +42,30 @@ export const Navigation = (params) => {
       
       {console.log(DataResponse)}
       <div className="margin">
-        <Row>
-          <Col>
-          <img id="center" className="logo-kabupaten" src="Dinkes.svg"></img>
-          </Col>
-        </Row>
+      
+      <Container>
+             <Row>
+              <Col>
+              <img id="center" className="logokabupaten" src={Instansi.logo_instansi}></img>
+              <h3 className="Logtext">{Instansi.nama_instansi}</h3>
+              </Col>
+              <Col md={3} className="logmail">
+              <img id="center" className="email" src="/email.png" width="50px" height="50px"></img>
+              <div>
+                <p className="mail">Email : <h2 className="surel">{Instansi.email}</h2> </p>
+              </div>
+              </Col>
+              <Col md={3} className="logphone">
+              <img id="center" className="email" src="/phone.png" width="50px" height="50px"></img>
+              <div>
+                <p className="mail">Hubungi Kami : <h2 className="surel">{Instansi.nomor_telepon}</h2> </p>
+              </div>
+              </Col>
+              </Row>
+              </Container>
       </div>
           {/* <Menu DataResponse={DataResponse}/> */}
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar sticky="top" collapseOnSelect expand="lg" className="Navigasi" >
           <Container>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -49,15 +77,53 @@ export const Navigation = (params) => {
               <>
               {
                 m.children.length > 0 ? <> 
-                <NavDropdown title = {m.name}>
+                <NavDropdown title = {m.name} >
                 
                 {
                   m.children && m.children.map((h,k) => {
                     {console.log("Nama Children "+h.name)}
-                    return <NavDropdown.Item eventKey="4.1" href={h.url}>{h.name}</NavDropdown.Item>
+                    return(
+                      <>
+                      {
+                        h.children.length > 0 ? <> 
+                        <NavDropdown title = {h.name}>
+                          {
+                            
+                            h.children && h.children.map((j,o) =>  {
+                              return( 
+                                <>
+                                
+                      {
+                        j.children.length > 0 ? <> 
+                        <NavDropdown title = {j.name}>
+                          {
+                            j.children && j.children.map((k,l) => {
+                              return <NavDropdown.Item eventKey="4.1" href={k.url} >{k.name}</NavDropdown.Item>
+                            }
+
+                            )
+                          }
+                        </NavDropdown>
+                        
+                  </> :   <Nav.Link href={j.url}>{j.name}</Nav.Link>
+              
+                      }
+                      </>
+                              )
+                            }
+
+                            )
+                          }
+                        </NavDropdown>
+                  </> :   <Nav.Link href={h.url}>{h.name}</Nav.Link>
+              
+                      }
+                      </>
+                    )
                     
                   })
                 }
+                
                   </NavDropdown>
                   </> :   <Nav.Link href={m.url}>{m.name}</Nav.Link>
               

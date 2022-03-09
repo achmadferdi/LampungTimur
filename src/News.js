@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./News.css";
 import { Container } from "react-bootstrap";
+import moment from "moment/min/moment-with-locales";
 
 export const News = (params) => {
   const [DataResponse, setDataResponses] = useState(0);
@@ -15,7 +16,7 @@ export const News = (params) => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=5&per_page=3&sort_by=title")
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2&sort_by=created_at")
       .then(function (response) {
         setDataResponses(response.data.data.data);
       })
@@ -37,18 +38,22 @@ export const News = (params) => {
         <Row>
           <Col className='berita-terbaru'>
             <h3>Berita Terbaru</h3>
-            <Row xs={1} md={3} className = 'g-4'>
+            <Row xs={1} md={2} className = 'g-4'>
               {
                 DataResponse != null ?
                 DataResponse && DataResponse.map ((item, index) => {
                   return(
-                    <Col className= 'style-card'>
-                      <Card>
-                        <Card.Img variant = 'top' width={500} height={333} src = {item.image_file_data} />
+                    <Col>
+                      <Card className= 'stylecard'>
+                        <Card.Img variant = 'top' width={400} height={200} src = {item.image_file_data} />
                         <Card.Body>
                           <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                          <a href="#" className="text-muted">
+                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                            <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
                           <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
-                          <Button>Go somewhere</Button>
+                          <Button variant="outline-primary" href={`/news/DetailArtikel/${item.id}`}> Baca Selengkapnya...</Button>
                         </Card.Body>
                       </Card>
                     </Col>

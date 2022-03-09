@@ -48,7 +48,7 @@ export const Gallerys = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=5&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=2&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           iPages = [];
@@ -84,7 +84,9 @@ export const Gallerys = (params) => {
 
 
     return (
-        <div className="Bangsat">
+        <div>
+          <h3 className="GalFoto">Galeri</h3>
+          <div className="Bangsat">
             {
                 DataResponse != null ?
                 DataResponse && DataResponse.map((item,index) => {
@@ -100,7 +102,7 @@ export const Gallerys = (params) => {
             >
               
                 <a className="a" href={itm.image_file_data}>
-                    <img className="b" width={400} height={300} 
+                    <img className="b"
                     alt={itm.description} src={itm.image_file_data} />
                 </a>
                 
@@ -115,29 +117,21 @@ export const Gallerys = (params) => {
 
                 ) : <span className='text-black'>Loading....</span>
             }
-
+                        <Container>
+                <Col>
+                <Pagination>{IPages}</Pagination>
+                </Col>
+            </Container>
+            </div>
+            <h3 className="GalVideo">Galeri video</h3>
+            <div className="Bangsat">
             {
               
               Video != null ?
               Video && Video.map((item, index) =>{
                 return item.image_gallery_item.map((itm, idx) => {
                   return(
-        //             <div className="Gal">
-        //     <LightGallery
-        //         elementClassNames="custom-wrapper-class"
-        //         onBeforeSlide={onBeforeSlide}
-        //         plugins={[lgThumbnail, lgVideo]}
-        //     >
-              
-        //         <a className="a" data-src={`https://youtu.be/${itm.video_url}?`}>
-        //             <img className="b" width={400} height={300} 
-        //             alt={itm.description} src={itm.thumbnail_url} />
-        //         </a>
-                
-
-        //     </LightGallery>
-
-        // </div>
+      
                     <div className="Vido" key={idx}>
                     <div className="tile-videos">
                       <iframe id="player" type="text/html" src={`https://www.youtube.com/embed/${itm.video_url}?`} className="player-wrapper" ></iframe>
@@ -158,14 +152,11 @@ export const Gallerys = (params) => {
               ) : <span className='text-black'>Loading....</span>
 
             }
+            </div>
 
             
-            <Container>
-                <Col>
-                <Pagination>{IPages}</Pagination>
-                </Col>
-            </Container>
-        
+
+            
         </div>
     )
 }

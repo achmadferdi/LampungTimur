@@ -10,23 +10,20 @@ import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
 
-export const Pnews = (params) => {
+export const Pengumuman = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
     const axios = require("axios");
+    const [Instansi, setInstansi] = useState(0);
     const [IPages, setIPages] = useState([]);
     let iPages = [];
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     const [Kategori, setKategori] = useState(0);
     const [Umum, setUmum] = useState(0);
-    const [ArtikelByKategori, setArtikelByKategori] = useState("");
-    const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
-      "d-flex justify-content-between align-items-start kategori-list-article"
-    );
   
     useEffect(() => {
         gettingData(1);
-    }, [ArtikelByKategori]);
+    }, []);
 
     function handleLength(value, lengths) {
         if (value.length < lengths) {
@@ -39,7 +36,7 @@ export const Pnews = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" + ArtikelByKategori + "&per_page=4&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=6&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           iPages = [];
@@ -63,7 +60,7 @@ export const Pnews = (params) => {
     }
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+        .get("http://adminmesuji.embuncode.com/api/news/categories/2")
         .then(function (response) {
           setKategori(response.data.data);
         })
@@ -71,56 +68,33 @@ export const Pnews = (params) => {
           console.log(error);
         });
     }, []);
-
-    useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2")
-        .then(function (response) {
-          setUmum(response.data.data.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
-
-    function handleArticleChange(artikelSlug) {
-      console.log("artikelSlug", artikelSlug);
-      // getData(1, artikelSlug)
-      setArtikelByKategori(artikelSlug);
-      setActiveArtikelClassname(
-        "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
-      );
-    }
+  
   
       return (
         <Fragment>
-            <Row>
+            <Container>
+            <Row className="seluruh-pengumuman">
             
-            <Col md={8} sm={12} xs={12} className='seluruh-berita'>
-                <Container>
+            <Col md={9} sm={12} xs={12} >
                 <Col>
-              <h3>  Berita Terbaru</h3>
+              <h3 className="Pengtext">Pengumuman</h3>
               </Col>
-              </Container>
                 {
                   DataResponse != null ?
                   DataResponse && DataResponse.map ((item, index) => {
                     return(
-                        <Container>
                         <Card>
-                          <Card.Img variant = 'top' width={100} height={100} src = {item.image_file_data} />
                           <Card.Body>
                             <Card.Title>{handleLength(item.title, 20)}</Card.Title>
                             <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>
                             <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
-                            <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
+                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
 
-                            <Link to={`/news/DetailArtikel/${item.id}`}>Selengkapnya....</Link>
+                            <Link to={`/pengumuman/DetailPengumuman/${item.id}`}> Baca Selengkapnya....</Link>
                           </Card.Body>
                         </Card>
-                        </Container>
                       
                       
                     )
@@ -134,40 +108,10 @@ export const Pnews = (params) => {
                 </Container>
             </Col>
             
-            <Col md={4} sm={12} xs={12}>
-                <Container>
-                <Col>
-                <h3>Berita Umum</h3>
-                </Col>
-                </Container>
-                {
-                  Umum != null ?
-                  Umum && Umum.map ((item, index) => {
-                    return(
-                        <Container>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title>{handleLength(item.title, 20)}</Card.Title>
-                                <Card.Text>
-                                {handleLength(item.content, 120)} ...
-                                    </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
-                                    </Card.Body>
-                                    </Card>
-                                    </Container>
-                      
-                      
-                    )
-                  }
-                  ) : <span className='text-black'>Loading....</span>
-                }
-                <Container>
+            <Col md={3} sm={12} xs={12}>
               <Col className="Kategori">
               <h3>Kategori</h3>
               </Col>
-              </Container>
-              <Container>
-              <Col md={8} sm={12} xs={12}>
               {
                 Kategori && Kategori.map  ((item, index) => {
                   return(
@@ -179,7 +123,7 @@ export const Pnews = (params) => {
                   {item.nama_kategori}
                   </a>
                   </div>
-                  <Badge variant="primary" pill>{item.artikel_count}</Badge>
+                  <Badge variant="primary" pill>{item.news_count}</Badge>
                 </ListGroup.Item>
               </ListGroup>
                   
@@ -188,16 +132,14 @@ export const Pnews = (params) => {
 
                 )
               }
-                </Col>
-                </Container>
-
             </Col>
             
             </Row>
+            </Container>
           </Fragment>
       );
     
     
   };
   
-  export default Pnews;
+  export default Pengumuman;
