@@ -1,17 +1,21 @@
 // import PdfViewerComponent from './PdfViewerComponent';
 import React, { Fragment, useEffect, useState } from 'react';
 import  { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 export const DocumentViewerComponent = (params) =>{
     let { slug } = useParams();
     let { filename } = useParams();
     const [DataDokumen, setDataDokumen] = useState();
     const axios = require("axios");
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get("http://adminmesuji.embuncode.com/api/dokumen/" + slug)
         .then(function (response) {
             setDataDokumen(response.data.data)
+            dispatch(increment());
         })
         .catch(function (error) {
           console.log(error);

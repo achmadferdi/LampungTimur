@@ -23,10 +23,14 @@ export const PengumumanHome = (params) => {
     const [Kategori, setKategori] = useState(0);
     const [Umum, setUmum] = useState(0);
     const dispatch = useDispatch();
+    const [ArtikelByKategori, setArtikelByKategori] = useState("");
+    const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
+      "d-flex justify-content-between align-items-start kategori-list-article"
+    );
   
     useEffect(() => {
         gettingData(1);
-    }, []);
+    }, [ArtikelByKategori]);
 
     function handleLength(value, lengths) {
         if (value.length < lengths) {

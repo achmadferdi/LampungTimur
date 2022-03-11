@@ -17,6 +17,8 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 // import lgZoom from 'lightgallery/plugins/zoom';
 import lgVideo from 'lightgallery/plugins/video';
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 
 export const Gallerys = (params) => {
@@ -28,6 +30,7 @@ export const Gallerys = (params) => {
     const [, updateState] = useState();
     const [Video, setVideo] = useState(0);
     const forceUpdate = useCallback(() => updateState({}), []);
+    const dispatch = useDispatch();
     const onBeforeSlide = (detail) => {
       const { index, prevIndex } = detail;
       console.log(index, prevIndex);
@@ -51,6 +54,7 @@ export const Gallerys = (params) => {
         .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=2&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
+          dispatch(increment());
           iPages = [];
         //   if (tooglePaginate) {
             for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -76,6 +80,7 @@ export const Gallerys = (params) => {
         .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2")
         .then(function (response) {
           setVideo(response.data.data.data);
+          dispatch(increment());
         })
         .catch(function (error) {
           console.log(error);

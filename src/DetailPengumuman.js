@@ -4,12 +4,15 @@ import { Card, Container, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment/min/moment-with-locales";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 const DetailArtikel = () => {
   const { id } = useParams();
   console.log("first", id);
   const axios = require("axios");
   const [dataDetailArtikel, setDataDetailArtikel] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -17,6 +20,7 @@ const DetailArtikel = () => {
       .then(function (response) {
         console.log("console detail: " + response.data.data);
         setDataDetailArtikel(response.data.data);
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);

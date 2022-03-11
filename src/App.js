@@ -17,10 +17,23 @@ import { DocumentViewerComponent } from './DocumentViewerComponent';
 import Pengumuman from './Pengumuman';
 import DetailPengumuman from './DetailPengumuman';
 import Loading from "react-fullscreen-loading";
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { Fragment, useState, useEffect } from "react";
+import StaticPage from './StaticPage';
 
 function App() {
+  const dispatch = useDispatch()
+  const count = useSelector((state) => state.counter.value)
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  console.log('count di app js', count)
+
+  useEffect(() => {
+    console.log('LoaderComplete', LoaderComplete)
+    if (count == 7 || count == 2 ) {
+      setLoaderComplete(false)
+    }
+  }, [count, LoaderComplete]);
+  
   return (
     <div className="App">
       <Loading loading={false} background='#2ecc71' loaderColor='#3498db' />
@@ -37,6 +50,7 @@ function App() {
         <Route path="dokumen" element={<Dokumen />} />
         <Route path="Pengumuman" element={<Pengumuman />} />
         <Route path="/pdf/:slug/:filename" element={<DocumentViewerComponent />} />
+        <Route path="/static/:id" element={<StaticPage />} />
       </Routes>
       <Footer />
     </div>

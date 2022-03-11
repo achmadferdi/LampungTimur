@@ -9,6 +9,8 @@ import { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./Counter";
 
 export const Pnews = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
@@ -19,6 +21,7 @@ export const Pnews = (params) => {
     const forceUpdate = useCallback(() => updateState({}), []);
     const [Kategori, setKategori] = useState(0);
     const [Umum, setUmum] = useState(0);
+    const dispatch = useDispatch();
     const [ArtikelByKategori, setArtikelByKategori] = useState("");
     const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
       "d-flex justify-content-between align-items-start kategori-list-article"
@@ -42,6 +45,7 @@ export const Pnews = (params) => {
         .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" + ArtikelByKategori + "&per_page=4&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
+          dispatch(increment());
           iPages = [];
         //   if (tooglePaginate) {
             for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -60,12 +64,15 @@ export const Pnews = (params) => {
           console.log(error);
         });
 
+        
+
     }
     useEffect(() => {
       axios
         .get("http://adminmesuji.embuncode.com/api/article/categories/2")
         .then(function (response) {
           setKategori(response.data.data);
+          dispatch(increment());
         })
         .catch(function (error) {
           console.log(error);
@@ -77,6 +84,7 @@ export const Pnews = (params) => {
         .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2")
         .then(function (response) {
           setUmum(response.data.data.data);
+          dispatch(increment());
         })
         .catch(function (error) {
           console.log(error);
@@ -173,7 +181,7 @@ export const Pnews = (params) => {
                   return(
                     
                     <ListGroup as="ol" >
-                <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+                <ListGroup.Item  onClick={() => handleArticleChange(item.slug)} as="li" className="d-flex justify-content-between align-items-start">
                   <div >
                     <a>
                   {item.nama_kategori}
