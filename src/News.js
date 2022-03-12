@@ -41,7 +41,7 @@ export const News = (params) => {
       <Fragment>
         <Row>
           <Col className='berita-terbaru'>
-            <h3>Berita Terbaru</h3>
+            <h3>Artikel Terbaru</h3>
             <Row xs={1} md={2} className = 'g-4'>
               {
                 DataResponse != null ?
@@ -57,7 +57,7 @@ export const News = (params) => {
                               </a>
                             <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
                           <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
-                          <Button variant="outline-primary" href={`/news/DetailArtikel/${item.id}`}> Baca Selengkapnya...</Button>
+                          <Button variant="outline-primary" href={`/artikel/DetailArtikel/${item.id}`}> Baca Selengkapnya...</Button>
                         </Card.Body>
                       </Card>
                     </Col>

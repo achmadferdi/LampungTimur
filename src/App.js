@@ -20,6 +20,7 @@ import Loading from "react-fullscreen-loading";
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment, useState, useEffect } from "react";
 import StaticPage from './StaticPage';
+import { GalVid } from './GalVid';
 
 function App() {
   const dispatch = useDispatch()
@@ -42,15 +43,16 @@ function App() {
        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="profile" element={<Profile />} />
-        <Route exact path="/news" element={<Pnews />} />
-        <Route path="/news/DetailArtikel/:id" element={<DetailArtikel />} />
-        <Route path="/pengumuman/DetailPengumuman/:id" element={<DetailPengumuman />} />
+        <Route exact path="/artikel" element={<Pnews />} />
+        <Route path="/artikel/DetailArtikel/:id" element={<DetailArtikel />} />
+        <Route path="/berita/DetailBerita/:id" element={<DetailPengumuman />} />
         <Route path="sejarah" element={<Sejarah />} />
-        <Route path="gallerys" element={<Gallerys />} />
+        <Route path="galerifoto" element={<Gallerys />} />
+        <Route path="galerivideo" element={<GalVid />} />
         <Route path="dokumen" element={<Dokumen />} />
-        <Route path="Pengumuman" element={<Pengumuman />} />
+        <Route path="/berita" element={<Pengumuman />} />
         <Route path="/pdf/:slug/:filename" element={<DocumentViewerComponent />} />
-        <Route path="/static/:id" element={<StaticPage />} />
+        <Route path="/:id" element={<StaticPage />} />
       </Routes>
       <Footer />
     </div>

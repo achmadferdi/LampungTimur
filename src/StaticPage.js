@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
+import Loading from 'react-fullscreen-loading';
 
 const StaticPage = () => {
     const { id } = useParams();
@@ -13,6 +14,8 @@ const StaticPage = () => {
   const axios = require("axios");
   const [StaticPage, setStaticPage] = useState(0);
   const dispatch = useDispatch();
+  const count = useSelector((state) => state.counter.value)
+  const [LoaderComplete, setLoaderComplete] = useState(true);
 
   useEffect(() => {
     axios
@@ -27,8 +30,16 @@ const StaticPage = () => {
       });
   }, [axios]);
 
+  useEffect(() => {
+    console.log('LoaderComplete', LoaderComplete)
+    if (count == 1) {
+      setLoaderComplete(false)
+    }
+  }, [count, LoaderComplete]);  
+
   return (
     <div>
+        <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
     <Container>
   <Row>
     <Col>
@@ -36,7 +47,7 @@ const StaticPage = () => {
         <Card>
           <Card.Body>
             <Card.Title>{StaticPage.title}</Card.Title>
-            <Card.Text> <a>Tags : </a> {StaticPage.created_by}</Card.Text>
+            <Card.Text> <a>Created by : </a> {StaticPage.created_by}</Card.Text>
             <Card.Text
               dangerouslySetInnerHTML={{
                 __html: StaticPage.content,

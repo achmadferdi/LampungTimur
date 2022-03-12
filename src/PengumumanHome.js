@@ -27,23 +27,30 @@ export const PengumumanHome = (params) => {
     const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
       "d-flex justify-content-between align-items-start kategori-list-article"
     );
-  
     useEffect(() => {
-        gettingData(1);
-    }, [ArtikelByKategori]);
+      gettingData(1);
+  }, [ArtikelByKategori]);
+  
+  function handleLength(value, lengths) {
+    if (value.length < lengths) {
+      return value;
+    } else {
+      return value.substring(0, lengths);
+    }
+  }
+  let tooglePaginate = true;
+  function gettingData(page) {
+    setDataResponses(null);
 
-    function handleLength(value, lengths) {
-        if (value.length < lengths) {
-          return value;
-        } else {
-          return value.substring(0, lengths);
-        }
-      }
-      let tooglePaginate = true;
-      function gettingData(page) {
-        setDataResponses(null);
+    var url = ''
+    if (ArtikelByKategori == '') {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
+    }
+    else {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
+    }
     axios
-        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3")
+        .get(url)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -89,6 +96,15 @@ export const PengumumanHome = (params) => {
             console.log(error);
           });
       }, []);
+
+      function handleArticleChange(artikelSlug) {
+        console.log("artikelSlug", artikelSlug);
+        // getData(1, artikelSlug)
+        setArtikelByKategori(artikelSlug);
+        setActiveArtikelClassname(
+          "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
+        );
+      }
   
   
       return (
@@ -98,24 +114,27 @@ export const PengumumanHome = (params) => {
             
             <Col md={9} sm={12} xs={12} >
                 <Col>
-              <h3 className="Pengtext">Pengumuman</h3>
+              <h3 className="Pengtext">Berita Terbaru</h3>
               </Col>
                 {
                   DataResponse != null ?
                   DataResponse && DataResponse.map ((item, index) => {
                     return(
-                        <Card>
-                          <Card.Body>
-                            <Card.Title>{handleLength(item.title, 20)}</Card.Title>
-                            <a href="#" className="text-muted">
-                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
-                              </a>
-                            <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
-                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
+                      <Card className="artikel">
+                      <Card.Body>
+                      <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
+                        <Row className="cardart">
+                        <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                        <a href="#" className="text-muted">
+                            {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                          </a>
+                        <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
+                        <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
 
-                            <Link to={`/pengumuman/DetailPengumuman/${item.id}`}> Baca Selengkapnya....</Link>
-                          </Card.Body>
-                        </Card>
+                        <Link to={`/berita/DetailBerita/${item.id}`}> Baca Selengkapnya....</Link>
+                        </Row>
+                      </Card.Body>
+                    </Card>
                       
                       
                     )
@@ -123,7 +142,7 @@ export const PengumumanHome = (params) => {
                   ) : <span className='text-black'>Loading....</span>
                 }
                 <Col>
-                <Button variant="outline-primary" href="/pengumuman">Seluruh Berita</Button>{' '}
+                <Button variant="outline-primary" href="/berita">Seluruh Berita</Button>{' '}
                 </Col>
             </Col>
             
@@ -135,9 +154,9 @@ export const PengumumanHome = (params) => {
                 Kategori && Kategori.map  ((item, index) => {
                   return(
                     
-                    <ListGroup as="ol" >
-                <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
-                  <div >
+                    <ListGroup className = "kategori" onClick={() => handleArticleChange(item.slug)} as="ol" >
+                <ListGroup.Item  as="li" className="d-flex justify-content-between align-items-start">
+                  <div  >
                     <a>
                   {item.nama_kategori}
                   </a>

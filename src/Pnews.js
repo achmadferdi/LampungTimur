@@ -11,6 +11,7 @@ import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
+import Loading from 'react-fullscreen-loading';
 
 export const Pnews = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
@@ -23,6 +24,8 @@ export const Pnews = (params) => {
     const [Umum, setUmum] = useState(0);
     const dispatch = useDispatch();
     const [ArtikelByKategori, setArtikelByKategori] = useState("");
+    const count = useSelector((state) => state.counter.value)
+    const [LoaderComplete, setLoaderComplete] = useState(true);
     const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
       "d-flex justify-content-between align-items-start kategori-list-article"
     );
@@ -42,7 +45,7 @@ export const Pnews = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" + ArtikelByKategori + "&per_page=4&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" + ArtikelByKategori + "&sort_by=created_at&per_page=4&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -99,36 +102,43 @@ export const Pnews = (params) => {
         "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
       );
     }
+
+    useEffect(() => {
+      console.log('LoaderComplete', LoaderComplete)
+      if (count == 3) {
+        setLoaderComplete(false)
+      }
+    }, [count, LoaderComplete]);
   
       return (
         <Fragment>
-            <Row>
+           <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
+          <Container>
             
-            <Col md={8} sm={12} xs={12} className='seluruh-berita'>
-                <Container>
+            <Row className="seluruh-pengumuman">
+            <Col md={9} sm={12} xs={12} >
                 <Col>
-              <h3>  Berita Terbaru</h3>
+              <h3 className="Pengtext">Artikel Terbaru</h3>
               </Col>
-              </Container>
                 {
                   DataResponse != null ?
                   DataResponse && DataResponse.map ((item, index) => {
                     return(
-                        <Container>
-                        <Card>
-                          <Card.Img variant = 'top' width={100} height={100} src = {item.image_file_data} />
+                        <Card className="artikel">
                           <Card.Body>
+                          <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
+                            <Row className="cardart">
                             <Card.Title>{handleLength(item.title, 20)}</Card.Title>
                             <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>
                             <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
-                            <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
+                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
 
-                            <Link to={`/news/DetailArtikel/${item.id}`}>Selengkapnya....</Link>
+                            <Link to={`/artikel/DetailArtikel/${item.id}`}> Baca Selengkapnya....</Link>
+                            </Row>
                           </Card.Body>
                         </Card>
-                        </Container>
                       
                       
                     )
@@ -142,46 +152,19 @@ export const Pnews = (params) => {
                 </Container>
             </Col>
             
-            <Col md={4} sm={12} xs={12}>
-                <Container>
-                <Col>
-                <h3>Berita Umum</h3>
-                </Col>
-                </Container>
-                {
-                  Umum != null ?
-                  Umum && Umum.map ((item, index) => {
-                    return(
-                        <Container>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title>{handleLength(item.title, 20)}</Card.Title>
-                                <Card.Text>
-                                {handleLength(item.content, 120)} ...
-                                    </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
-                                    </Card.Body>
-                                    </Card>
-                                    </Container>
-                      
-                      
-                    )
-                  }
-                  ) : <span className='text-black'>Loading....</span>
-                }
-                <Container>
+            <Col md={3} sm={12} xs={12}>
+            <Container>
               <Col className="Kategori">
               <h3>Kategori</h3>
               </Col>
               </Container>
               <Container>
-              <Col md={8} sm={12} xs={12}>
               {
                 Kategori && Kategori.map  ((item, index) => {
                   return(
                     
-                    <ListGroup as="ol" >
-                <ListGroup.Item  onClick={() => handleArticleChange(item.slug)} as="li" className="d-flex justify-content-between align-items-start">
+                    <ListGroup className = "kategori" onClick={() => handleArticleChange(item.slug)} as="ol" >
+                <ListGroup.Item  as="li" className="d-flex justify-content-between align-items-start">
                   <div >
                     <a>
                   {item.nama_kategori}
@@ -196,12 +179,40 @@ export const Pnews = (params) => {
 
                 )
               }
+                </Container>
+                <Container className="artikelumum">
+                <Col>
+                <h3>Artikel Umum</h3>
                 </Col>
                 </Container>
-
+                {
+                  Umum != null ?
+                  Umum && Umum.map ((item, index) => {
+                    return(
+                        <Container>
+                        <Card className="artikel" style={{ width: '18rem' }}>
+                            <Card.Body>
+                            <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                            <a href="#" className="text-muted">
+                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                            <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
+                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
+                                    <Button href={`/artikel/DetailArtikel/${item.id}`} variant="primary">Selengkapnya</Button>
+                                    </Card.Body>
+                                    </Card>
+                                    </Container>
+                      
+                      
+                    )
+                  }
+                  ) : <span className='text-black'>Loading....</span>
+                }
+                
             </Col>
             
             </Row>
+            </Container>
           </Fragment>
       );
     

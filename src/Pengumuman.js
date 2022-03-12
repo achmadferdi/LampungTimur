@@ -11,6 +11,7 @@ import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
+import Loading from 'react-fullscreen-loading'
 
 export const Pengumuman = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
@@ -23,10 +24,16 @@ export const Pengumuman = (params) => {
     const [Kategori, setKategori] = useState(0);
     const [Umum, setUmum] = useState(0);
     const dispatch = useDispatch();
+    const [ArtikelByKategori, setArtikelByKategori] = useState("");
+    const count = useSelector((state) => state.counter.value)
+    const [LoaderComplete, setLoaderComplete] = useState(true);
+    const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
+      "d-flex justify-content-between align-items-start kategori-list-article"
+    );
   
     useEffect(() => {
         gettingData(1);
-    }, []);
+    }, [ArtikelByKategori]);
 
     function handleLength(value, lengths) {
         if (value.length < lengths) {
@@ -38,8 +45,16 @@ export const Pengumuman = (params) => {
       let tooglePaginate = true;
       function gettingData(page) {
         setDataResponses(null);
+        
+        var url = ''
+    if (ArtikelByKategori == '') {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+    }
+    else {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+    }
     axios
-        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=6&page=" + page)
+        .get(url)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -73,23 +88,53 @@ export const Pengumuman = (params) => {
           console.log(error);
         });
     }, []);
-  
+
+    useEffect(() => {
+      axios
+        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=2")
+        .then(function (response) {
+          setUmum(response.data.data.data);
+          dispatch(increment());
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, []);
+
+    function handleArticleChange(artikelSlug) {
+      console.log("artikelSlug", artikelSlug);
+      // getData(1, artikelSlug)
+      setArtikelByKategori(artikelSlug);
+      setActiveArtikelClassname(
+        "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
+      );
+    }
+
+    useEffect(() => {
+      console.log('LoaderComplete', LoaderComplete)
+      if (count == 3) {
+        setLoaderComplete(false)
+      }
+    }, [count, LoaderComplete]);
   
       return (
         <Fragment>
+           <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
             <Container>
             <Row className="seluruh-pengumuman">
             
             <Col md={9} sm={12} xs={12} >
                 <Col>
-              <h3 className="Pengtext">Pengumuman</h3>
+              <h3 className="Pengtext">Berita Terbaru</h3>
               </Col>
                 {
                   DataResponse != null ?
                   DataResponse && DataResponse.map ((item, index) => {
                     return(
-                        <Card>
+                        <Card className="artikel">
                           <Card.Body>
+                          <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
+                            <Row className="cardart">
                             <Card.Title>{handleLength(item.title, 20)}</Card.Title>
                             <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
@@ -97,7 +142,8 @@ export const Pengumuman = (params) => {
                             <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
                             <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
 
-                            <Link to={`/pengumuman/DetailPengumuman/${item.id}`}> Baca Selengkapnya....</Link>
+                            <Link to={`/berita/DetailBerita/${item.id}`}> Baca Selengkapnya....</Link>
+                            </Row>
                           </Card.Body>
                         </Card>
                       
@@ -114,15 +160,18 @@ export const Pengumuman = (params) => {
             </Col>
             
             <Col md={3} sm={12} xs={12}>
+              <Container>
               <Col className="Kategori">
               <h3>Kategori</h3>
               </Col>
+              </Container>
+              <Container>
               {
                 Kategori && Kategori.map  ((item, index) => {
                   return(
                     
-                    <ListGroup as="ol" >
-                <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+                    <ListGroup className = "kategori" onClick={() => handleArticleChange(item.slug)} as="ol" >
+                <ListGroup.Item  as="li" className="d-flex justify-content-between align-items-start">
                   <div >
                     <a>
                   {item.nama_kategori}
@@ -137,6 +186,35 @@ export const Pengumuman = (params) => {
 
                 )
               }
+                </Container>
+                <Container className="artikelumum">
+                <Col>
+                <h3>Berita Umum</h3>
+                </Col>
+                </Container>
+                {
+                  Umum != null ?
+                  Umum && Umum.map ((item, index) => {
+                    return(
+                        <Container>
+                        <Card className="artikel" style={{ width: '18rem' }}>
+                            <Card.Body>
+                            <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                            <a href="#" className="text-muted">
+                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                            <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
+                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
+                                    <Button href={`/berita/DetailBerita/${item.id}`} variant="primary">Selengkapnya</Button>
+                                    </Card.Body>
+                                    </Card>
+                                    </Container>
+                      
+                      
+                    )
+                  }
+                  ) : <span className='text-black'>Loading....</span>
+                }
             </Col>
             
             </Row>

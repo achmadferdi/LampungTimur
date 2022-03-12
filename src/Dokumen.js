@@ -11,6 +11,7 @@ import moment from "moment/min/moment-with-locales";
 // import PDFViewer from 'pdf-viewer-reactjs';
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
+import Loading from 'react-fullscreen-loading';
 
 export const Dokumen = (params) =>{
     const [DataResponse, setDataResponses] = useState(0);
@@ -20,6 +21,8 @@ export const Dokumen = (params) =>{
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     const dispatch = useDispatch();
+    const count = useSelector((state) => state.counter.value)
+    const [LoaderComplete, setLoaderComplete] = useState(true);
 
 
     useEffect(() => {
@@ -60,8 +63,16 @@ export const Dokumen = (params) =>{
         });
     }
 
+    useEffect(() => {
+      console.log('LoaderComplete', LoaderComplete)
+      if (count == 1) {
+        setLoaderComplete(false)
+      }
+    }, [count, LoaderComplete]);
+
     return(
         <Fragment>
+          <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
             <Row>
                 <Container>
                     <h3>Dokumen</h3>

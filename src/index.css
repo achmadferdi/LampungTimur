@@ -270,3 +270,33 @@ div#root{
 .placehold{
   width: 80% !important;
 }
+.kategori{
+  cursor: pointer;
+}
+.fa-brands{
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.fab{
+  margin-top: 10px;
+  margin-right: 10px;;
+}
+.sosmed{
+  margin-top: 10px !important;
+}
+.imgnews{
+  float: left;
+  margin-right: 30px;
+}
+.artikel{
+  margin-bottom: 15px;
+}
+.artikelumum{
+  margin-top: 20px;
+}
+.cardart{
+  width:fit-content;
+}
+.gamteks{
+  margin-left: 12px;
+}

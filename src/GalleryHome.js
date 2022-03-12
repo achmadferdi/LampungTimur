@@ -76,9 +76,11 @@ export const GalleryHome = (params) =>{
               )
             }
             <Row className="khusus-gambar">
-            <Link to={"/gallerys"}>
+              <div className="gamteks">
+            <a href={"/gallerys"}>
               <p className='tag-p'>Gambar Lainnya{"..."}</p>
-            </Link>
+            </a>
+            </div>
           </Row>
             </div>
       )

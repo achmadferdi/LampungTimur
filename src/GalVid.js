@@ -21,9 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
 import Loading from 'react-fullscreen-loading';
 
-
-export const Gallerys = (params) => {
-
+export const GalVid = (params) => {
     const [DataResponse, setDataResponses] = useState(0);
     const axios = require("axios");
     const [IPages, setIPages] = useState([]);
@@ -38,8 +36,8 @@ export const Gallerys = (params) => {
       const { index, prevIndex } = detail;
       console.log(index, prevIndex);
   };
-    
-    useEffect(() => {
+
+  useEffect(() => {
         gettingData(1);
     }, []);
 
@@ -54,7 +52,7 @@ export const Gallerys = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=2&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2&per_page=2&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -79,67 +77,55 @@ export const Gallerys = (params) => {
     }
 
     useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2")
-        .then(function (response) {
-          setVideo(response.data.data.data);
-          dispatch(increment());
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+        console.log('LoaderComplete', LoaderComplete)
+        if (count == 1) {
+          setLoaderComplete(false)
+        }
+      }, [count, LoaderComplete]);
 
-    useEffect(() => {
-      console.log('LoaderComplete', LoaderComplete)
-      if (count == 2) {
-        setLoaderComplete(false)
-      }
-    }, [count, LoaderComplete]);
-
-
-    return (
+    return(
         <div>
-          <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
-          <h3 className="GalFoto">Galeri Foto</h3>
-          <div className="Bangsat">
+            <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
+            <h3 className="GalVideo">Galeri video</h3>
+            <div className="Bangsat">
             {
-                DataResponse != null ?
-                DataResponse && DataResponse.map((item,index) => {
-                  
-                    return item.image_gallery_item.map((itm,idx) => {
-        
-                        return (
-                          <div className="Gal">
-            <LightGallery
-                elementClassNames="custom-wrapper-class"
-                onBeforeSlide={onBeforeSlide}
-                // plugins={[lgThumbnail, lgZoom]}
-            >
               
-                <a className="a" href={itm.image_file_data}>
-                    <img className="b"
-                    alt={itm.description} src={itm.image_file_data} />
-                </a>
-                
-
-            </LightGallery>
-
-        </div>
-                        )
-                    }
-                    )
+              DataResponse != null ?
+              DataResponse && DataResponse.map((item, index) =>{
+                return item.image_gallery_item.map((itm, idx) => {
+                  return(
+      
+                    <div className="Vido" key={idx}>
+                    <div className="tile-videos">
+                      <iframe id="player" type="text/html" src={`https://www.youtube.com/embed/${itm.video_url}?`} className="player-wrapper" ></iframe>
+                      {/* <ReactPlayer url="https://www.youtube.com/watch?v=ZuxG5HjqyNg" className="player-wrapper" width="100%" height="100%" controls={true} /> */}
+                      <div className="text-videos">
+                        <h5 style={{ marginTop: '4rem', marginBottom: '0rem', fontSize: '20px' }}>{itm.description}</h5>
+                        {/* <h2 className="animate-text-videos">More lorem ipsum bacon ipsum.</h2> */}
+                      </div>
+                    </div>
+                  </div>
+                  )
                 }
 
-                ) : <span className='text-black'>Loading....</span>
+                )
+              }
+
+              ) : <span className='text-black'>Loading....</span>
+
             }
-                        <Container>
+            <Container>
                 <Col>
                 <Pagination>{IPages}</Pagination>
                 </Col>
             </Container>
             </div>
-          
+
+            
+
+            
         </div>
     )
+
+
 }

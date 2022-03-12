@@ -34,9 +34,13 @@ const DetailArtikel = () => {
         <Col>
           <Container>
             <Card>
-              <Card.Img variant='top' src={dataDetailArtikel.image_file_data} />
-              <Card.Body>
+            <Card.Body className="cardart"> 
+              <Card.Img  height={500} variant='top' src={dataDetailArtikel.image_file_data} />
                 <Card.Title>{dataDetailArtikel.title}</Card.Title>
+                <a href="#" className="text-muted">
+                                {moment(dataDetailArtikel.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                            <Card.Text>{(moment.locale('id-ID'), moment(dataDetailArtikel.created_at).fromNow())}</Card.Text>
                 <Card.Text> <a>Tags : </a> {dataDetailArtikel.news_category_id}</Card.Text>
                 <Card.Text
                   dangerouslySetInnerHTML={{

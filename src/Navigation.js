@@ -105,7 +105,11 @@ export const Navigation = (params) => {
                           }
                         </NavDropdown>
                         
-                  </> :   <Nav.Link href={j.url}>{j.name}</Nav.Link>
+                  </> : j.static_page != null ? (
+                    <Nav.Link href={j.static_page}>{j.name}</Nav.Link>
+                  ) : (
+                    <Nav.Link href={j.url}>{j.name}</Nav.Link>
+                  )
               
                       }
                       </>
@@ -115,7 +119,11 @@ export const Navigation = (params) => {
                             )
                           }
                         </NavDropdown>
-                  </> :   <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                  </> : h.static_page != null ? (
+                    <Nav.Link href={h.static_page}>{h.name}</Nav.Link>
+                  ) : (
+                    <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                  )
               
                       }
                       </>
@@ -127,7 +135,7 @@ export const Navigation = (params) => {
                   </NavDropdown>
 
                   </> : m.static_page != null ? (
-                    <Nav.Link href={'static/' + m.static_page}>{m.name}</Nav.Link>
+                    <Nav.Link href={m.static_page}>{m.name}</Nav.Link>
                   ) : (
                     <Nav.Link href={m.url}>{m.name}</Nav.Link>
                   )
