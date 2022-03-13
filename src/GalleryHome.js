@@ -77,9 +77,7 @@ export const GalleryHome = (params) =>{
             }
             <Row className="khusus-gambar">
               <div className="gamteks">
-            <a href={"/gallerys"}>
-              <p className='tag-p'>Gambar Lainnya{"..."}</p>
-            </a>
+              <Button className="butgal" variant="outline-primary" href="/galerifoto">Seluruh Foto</Button>{' '}
             </div>
           </Row>
             </div>

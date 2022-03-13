@@ -87,7 +87,7 @@ export const PengumumanHome = (params) => {
 
     useEffect(() => {
         axios
-          .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
+          .get("http://adminmesuji.embuncode.com/api/instansi/detail/5")
           .then(function (response) {
             setInstansi(response.data.data);
             dispatch(increment());

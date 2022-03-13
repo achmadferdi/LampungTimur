@@ -48,26 +48,9 @@ export const Footer = (params) => {
             </div>
             <div className="col-md-4 col-sm-6 col-xs-12">
               <div className="title-footer">
-                <h3>Alamat Lengkap :</h3>
               </div>
-              {Instansi.alamat}
-              {/* <Form>
-              <Form.Group  controlId="formBasicName">
-                <Form.Label className="mb" >Nama :</Form.Label>
-                <Form.Control className="placehold" type="name" placeholder="masukan nama" />
-              </Form.Group>
-              <Form.Group  controlId="formBasicEmail">
-              <Form.Label className="mb">Email :</Form.Label>
-              <Form.Control className="placehold" type="email" placeholder="masukan email" />
-            </Form.Group>
-            <Form.Group  controlId="exampleForm.ControlTextarea1">
-            <Form.Label className="mb">Isi :</Form.Label>
-            <Form.Control className="placehold" as="textarea" rows={5} />
-          </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-              </Form> */}
+              <img src={Instansi.logo_instansi}></img>
+              
             </div>
             <div className="col-md-4 col-sm-6 col-xs-12">
               <div className="title-footer">

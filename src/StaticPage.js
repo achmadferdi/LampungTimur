@@ -9,7 +9,7 @@ import { decrement, increment } from "./Counter";
 import Loading from 'react-fullscreen-loading';
 
 const StaticPage = () => {
-    const { id } = useParams();
+  const { id } = useParams();
   console.log("first", id);
   const axios = require("axios");
   const [StaticPage, setStaticPage] = useState(0);

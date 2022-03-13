@@ -41,7 +41,7 @@ code {
   background: lightskyblue none repeat scroll 0 0;
 }
 .Kategori{
-  margin-top: 40px
+  margin-top: 10px
   ;
 }
 .Bangsat{
@@ -299,4 +299,74 @@ div#root{
 }
 .gamteks{
   margin-left: 12px;
+}
+.butgal{
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.cardimg{
+  margin-bottom: 40px;
+}
+
+.logbot{
+  text-align: center;
+}
+.detmum{
+  width: fit-content !important;
+}
+.pembungkus-search{
+  margin-top : 43px;
+  background-color: white;
+  height: 70px;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+  width: 100% !important;
+  border-radius: 15px;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+  
+}
+.search-error-bg {
+  background-color: #ffff;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.search-error {
+  background-color: #ffffff;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  border-radius: 8px;
+}
+
+.search-error-heading {
+  font-size: 2rem !important;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+}
+
+.search-error-text {
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+
+}
+
+.search-error-img {
+  width: 20%;
+  margin-bottom: 15px;
+}
+.doc{
+  margin-bottom: 15px;
+  height: 150px;
 }

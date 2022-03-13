@@ -27,6 +27,7 @@ export const Pengumuman = (params) => {
     const [ArtikelByKategori, setArtikelByKategori] = useState("");
     const count = useSelector((state) => state.counter.value)
     const [LoaderComplete, setLoaderComplete] = useState(true);
+    const [Adaisi, setAdaisi] = useState(0);
     const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
       "d-flex justify-content-between align-items-start kategori-list-article"
     );
@@ -43,15 +44,21 @@ export const Pengumuman = (params) => {
         }
       }
       let tooglePaginate = true;
-      function gettingData(page) {
+      function gettingData(page, slug, title) {
+        let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
         setDataResponses(null);
         
         var url = ''
     if (ArtikelByKategori == '') {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2" + urlTitle + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
     }
     else {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2" + urlTitle + "&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
     }
     axios
         .get(url)
@@ -71,6 +78,7 @@ export const Pengumuman = (params) => {
             }
           
           forceUpdate();
+          setAdaisi(response.data.data.total);
         })
         .catch(function (error) {
           console.log(error);
@@ -116,6 +124,17 @@ export const Pengumuman = (params) => {
         setLoaderComplete(false)
       }
     }, [count, LoaderComplete]);
+
+    function handleSearchChange(value) {
+      console.log("value", value.target.value);
+      if (value.key === "Enter") {
+        if (value.target.value != "") {
+          gettingData(1, null, value.target.value);
+        } else {
+          gettingData(null, null);
+        }
+      }
+    }
   
       return (
         <Fragment>
@@ -128,7 +147,8 @@ export const Pengumuman = (params) => {
               <h3 className="Pengtext">Berita Terbaru</h3>
               </Col>
                 {
-                  DataResponse != null ?
+                  DataResponse != null ?(
+                  Adaisi != 0 ? (
                   DataResponse && DataResponse.map ((item, index) => {
                     return(
                         <Card className="artikel">
@@ -150,6 +170,14 @@ export const Pengumuman = (params) => {
                       
                     )
                   }
+                  )
+                  ) : <div className='search-error-bg d-flex justify-content-center align-items-center'>
+                  <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4 search-error d-flex flex-column justify-content-center align-items-center'>
+                    <img src='phone.png' alt='searc img' className='img-fluid search-error-img' />
+                    <p className='search-error-heading text-center'>Sorry, we couldn't find a word match</p>
+                    <p className='search-error-text text-center'>Please try searching with another words</p>
+                  </div>
+                  </div>
                   ) : <span className='text-black'>Loading....</span>
                 }
                 <Container>
@@ -160,6 +188,16 @@ export const Pengumuman = (params) => {
             </Col>
             
             <Col md={3} sm={12} xs={12}>
+            <Container>
+              <div className='pembungkus-search'>
+            <div className='main'>
+              <div className='form-group has-search'>
+                <span className='fa fa-search form-control-feedback' />
+                <input onKeyDown={handleSearchChange} type='text' className='form-control' placeholder='Cari Artikel' />
+              </div>
+            </div>
+          </div>
+              </Container>
               <Container>
               <Col className="Kategori">
               <h3>Kategori</h3>
@@ -197,7 +235,7 @@ export const Pengumuman = (params) => {
                   Umum && Umum.map ((item, index) => {
                     return(
                         <Container>
-                        <Card className="artikel" style={{ width: '18rem' }}>
+                        <Card className="artikel">
                             <Card.Body>
                             <Card.Title>{handleLength(item.title, 20)}</Card.Title>
                             <a href="#" className="text-muted">

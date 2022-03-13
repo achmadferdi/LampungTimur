@@ -1,14 +1,11 @@
-import React, { Fragment, useState, useEffect, Component } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import "./Pnews.css";
-import { Container, ListGroup, Badg, Pagination, Badge, Accordion } from "react-bootstrap";
+import { Container, Pagination, } from "react-bootstrap";
 import { useCallback } from 'react';
-import { Link } from "react-router-dom";
 import moment from "moment/min/moment-with-locales";
-// import PDFViewer from 'pdf-viewer-reactjs';
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
 import Loading from 'react-fullscreen-loading';
@@ -23,6 +20,7 @@ export const Dokumen = (params) =>{
     const dispatch = useDispatch();
     const count = useSelector((state) => state.counter.value)
     const [LoaderComplete, setLoaderComplete] = useState(true);
+    const [Adaisi, setAdaisi] = useState(0);
 
 
     useEffect(() => {
@@ -37,10 +35,16 @@ export const Dokumen = (params) =>{
         }
       }
       let tooglePaginate = true;
-      function gettingData(page) {
+      function gettingData(page, slug, title) {
+        let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=5&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8" + urlTitle + "&per_page=6&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -57,6 +61,7 @@ export const Dokumen = (params) =>{
             }
           
           forceUpdate();
+          setAdaisi(response.data.data.total);
         })
         .catch(function (error) {
           console.log(error);
@@ -70,58 +75,64 @@ export const Dokumen = (params) =>{
       }
     }, [count, LoaderComplete]);
 
+     function handleSearchChange(value) {
+      console.log("value", value.target.value);
+      if (value.key === "Enter") {
+        if (value.target.value != "") {
+          gettingData(1, null, value.target.value);
+        } else {
+          gettingData(null, null);
+        }
+      }
+    }
+
     return(
         <Fragment>
           <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
-            <Row>
+            <Container>
+            <Row className="seluruh-pengumuman">
+            <Col>
                 <Container>
-                    <h3>Dokumen</h3>
+                    <h3 className="Pengtext">Dokumen</h3>
                 </Container>
+
                 {
+                  
                     DataResponse && DataResponse.map((item, index) => {
-                        return item.dokumen_item.map((itm,idx)=> {
-                            return(
-                                <Container>
-                                  <div className='row offerList'>
-                                  <div className='col-md-12'>
-                                  <div className='media p-2'>
-                                  <img
-                                  className='d-flex mr-3 image-dok'
-                                  src='/dokumen.png'
-                                  alt='Generic placeholder image'
-                                  />
-                                  <div className='media-body'>
-                                   <h5 className='mt-0'>
-                                    <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>
-                                    {itm.dokumen_file_name}
-                                    </a>
-                                    </h5>
-                                  <p className='text_grey mb-0 '>
-                                 <span className='text_blue'>Created on: </span>
-
-                                 {moment(itm.created_at).format("L")}
-                                 {/* {itm.created_at} | */}
-                                <span className='text_blue'> Created by: </span>
-                                {itm.created_by}
-                                </p>
-                                  <span className='badge badge-pill badge-primary'>
-                                  {" "}
-                                  Update By: {itm.updated_by}
-                                  </span>
-                                   </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                </Container>
-                            )
-                        }
-
+                      return item.dokumen_item.map((itm,idx)=> {
+                        return (
+                          <Card className="doc">
+                             <Card.Body>
+                             <Card.Img className="imgnews" variant = 'left' width={125} height={125} src = '/dokumen.png'/>
+                             <Row className="cardart">
+                             <Card.Title> {itm.dokumen_file_name} </Card.Title>
+                             <a href="#" className="text-muted">
+                            {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                              <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
+                              <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}> Baca Selengkapnya....</a>
+                             </Row>
+                             </Card.Body>
+                          </Card>
+                            
                         )
                     }
 
                     )
+                      
+                        
+                    }
+
+                    )
                 }
+                < Container>
+                <Col>
+                <Pagination>{IPages}</Pagination>
+                </Col>
+                </Container>
+                </Col>
             </Row>
+            </Container>
         </Fragment>
     )
 }

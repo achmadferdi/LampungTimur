@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import  { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
+import Loading from 'react-fullscreen-loading';
 
 export const DocumentViewerComponent = (params) =>{
     let { slug } = useParams();
@@ -10,6 +11,9 @@ export const DocumentViewerComponent = (params) =>{
     const [DataDokumen, setDataDokumen] = useState();
     const axios = require("axios");
     const dispatch = useDispatch();
+    const count = useSelector((state) => state.counter.value)
+    const [LoaderComplete, setLoaderComplete] = useState(true);
+  
 
     useEffect(() => {
         axios.get("http://adminmesuji.embuncode.com/api/dokumen/" + slug)
@@ -22,8 +26,16 @@ export const DocumentViewerComponent = (params) =>{
         });
     }, []);
 
+    useEffect(() => {
+        console.log('LoaderComplete', LoaderComplete)
+        if (count == 1) {
+          setLoaderComplete(false)
+        }
+      }, [count, LoaderComplete]);
+
     return(
         <div>
+            <Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" /><Loading loading={LoaderComplete} background="#FFFFFF" loaderColor="#3498db" />
             {
                 DataDokumen && DataDokumen.map((item, index) => {
                     console.log('item.dokumen_file_data', item.dokumen_file_data)
