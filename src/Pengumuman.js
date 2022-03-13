@@ -4,13 +4,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./Pnews.css";
-import { Container, ListGroup, Badg, Pagination, Badge } from "react-bootstrap";
+import { Container, ListGroup, Pagination, Badge } from "react-bootstrap";
 import { useCallback } from 'react';
 import { Link } from "react-router-dom";
-import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./Counter";
+import { increment } from "./Counter";
 import Loading from 'react-fullscreen-loading'
 
 export const Pengumuman = (params) => {

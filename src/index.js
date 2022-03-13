@@ -5,10 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navigation} from './Navigation';
-import News from './News';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import store from './store';
 
 

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./Counter";
+import { increment } from "./Counter";
 import Loading from 'react-fullscreen-loading';
 import Button from "react-bootstrap/Button";
 

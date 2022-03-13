@@ -3,10 +3,8 @@ import * as React from "react";
 import './App.css';
 import {Navigation} from './Navigation';
 import {Home} from './Home';
-import {Profile} from './Profile';
 import Footer from './Footer';
 import Pnews from './Pnews';
-import { Sejarah } from './Sejarah';
 import { Gallerys } from './Gallerys';
 import { Dokumen } from './Dokumen';
 import DetailArtikel from './DetailArtikel';
@@ -38,11 +36,9 @@ function App() {
       <Navigation />
        <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="profile" element={<Profile />} />
         <Route exact path="/artikel" element={<Pnews />} />
         <Route path="/artikel/DetailArtikel/:id" element={<DetailArtikel />} />
         <Route path="/berita/DetailBerita/:id" element={<DetailPengumuman />} />
-        <Route path="/sejarah/test2/test3/test4/test5" element={<Sejarah />} />
         <Route path="galerifoto" element={<Gallerys />} />
         <Route path="galerivideo" element={<GalVid />} />
         <Route path="dokumen" element={<Dokumen />} />

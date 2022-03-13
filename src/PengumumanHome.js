@@ -7,7 +7,6 @@ import "./Pnews.css";
 import { Container, ListGroup, Badg, Pagination, Badge } from "react-bootstrap";
 import { useCallback } from 'react';
 import { Link } from "react-router-dom";
-import { Profile } from "./Profile";
 import moment from "moment/min/moment-with-locales";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";

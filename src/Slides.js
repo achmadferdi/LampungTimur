@@ -1,6 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
 import React, { Fragment, useState, useEffect } from "react";
-import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
 // import dummySlide from '../image/dummySlide.png';
