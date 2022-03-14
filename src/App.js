@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     console.log('LoaderComplete', LoaderComplete)
-    if (count == 7 || count == 2 ) {
+    if (count == 7 || count == 2 || count == 3 || count == 1) {
       setLoaderComplete(false)
     }
   }, [count, LoaderComplete]);

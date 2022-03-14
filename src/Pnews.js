@@ -90,7 +90,7 @@ export const Pnews = (params) => {
 
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2")
+        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2&sort_by=total_hit")
         .then(function (response) {
           setUmum(response.data.data.data);
           dispatch(increment());
@@ -165,10 +165,10 @@ export const Pnews = (params) => {
                   }
                   )
                   ) :  <div className='search-error-bg d-flex justify-content-center align-items-center'>
-                  <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4 search-error d-flex flex-column justify-content-center align-items-center'>
-                    <img src='phone.png' alt='searc img' className='img-fluid search-error-img' />
-                    <p className='search-error-heading text-center'>Sorry, we couldn't find a word match</p>
-                    <p className='search-error-text text-center'>Please try searching with another words</p>
+                  <div className='col-11 col-sm-8 col-md-6 col-lg-5 search-error d-flex flex-column justify-content-center align-items-center'>
+                    <img src='data-not-found.png' alt='searc img' className='img-fluid search-error-img' />
+                    <p className='search-error-heading text-center'>Maaf artikel yang anda cari tidak ditemukan</p>
+                    <p className='search-error-text text-center'>Silahkan dicari kembali</p>
                   </div>
                   </div>
                   ) : <span className='text-black'>Loading....</span>
@@ -220,7 +220,7 @@ export const Pnews = (params) => {
                 </Container>
                 <Container className="artikelumum">
                 <Col>
-                <h3>Artikel Umum</h3>
+                <h3>Artikel Populer</h3>
                 </Col>
                 </Container>
                 {

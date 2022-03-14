@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./Pnews.css";
-import { Container, ListGroup, Badg, Pagination, Badge } from "react-bootstrap";
+import { ListGroup, Pagination, Badge } from "react-bootstrap";
 import { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import moment from "moment/min/moment-with-locales";
@@ -20,7 +20,6 @@ export const PengumumanHome = (params) => {
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     const [Kategori, setKategori] = useState(0);
-    const [Umum, setUmum] = useState(0);
     const dispatch = useDispatch();
     const [ArtikelByKategori, setArtikelByKategori] = useState("");
     const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(

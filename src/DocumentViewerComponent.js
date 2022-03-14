@@ -1,6 +1,6 @@
 // import PdfViewerComponent from './PdfViewerComponent';
 import React, { Fragment, useEffect, useState } from 'react';
-import  { BrowserRouter as useParams } from "react-router-dom";
+import  { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "./Counter";
 import Loading from 'react-fullscreen-loading';
