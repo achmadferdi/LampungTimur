@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import Nav from "react-bootstrap/Nav";
+import { Link } from 'react-router-dom';
 import Navbar from "react-bootstrap/Navbar";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -106,9 +107,9 @@ export const Navigation = (params) => {
                         </NavDropdown>
                         
                   </> : j.static_page != null ? (
-                    <Nav.Link href={j.static_page}>{j.name}</Nav.Link>
+                    <Nav.Link  className="f-size" as={Link} key={j.id} to={`/static/${j.static_page}`}>{j.name}</Nav.Link>
                   ) : (
-                    <Nav.Link href={j.url}>{j.name}</Nav.Link>
+                    <Nav.Link className="f-size" as={Link} key={j.id} to={j.url}>{j.name}</Nav.Link>
                   )
               
                       }
@@ -120,9 +121,9 @@ export const Navigation = (params) => {
                           }
                         </NavDropdown>
                   </> : h.static_page != null ? (
-                    <Nav.Link href={h.static_page}>{h.name}</Nav.Link>
+                    <Nav.Link className="f-size" as={Link} key={h.id} to={`/static/${h.static_page}`}>{h.name}</Nav.Link>
                   ) : (
-                    <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                    <Nav.Link className="f-size" as={Link} key={h.id} to={h.url}>{h.name}</Nav.Link>
                   )
               
                       }
@@ -135,9 +136,9 @@ export const Navigation = (params) => {
                   </NavDropdown>
 
                   </> : m.static_page != null ? (
-                    <Nav.Link href={m.static_page}>{m.name}</Nav.Link>
+                    <Nav.Link className="f-size" as={Link} key={m.id} to={`/static/${m.static_page}`}>{m.name}</Nav.Link>
                   ) : (
-                    <Nav.Link href={m.url}>{m.name}</Nav.Link>
+                    <Nav.Link className="f-size" as={Link} key={m.id} to={m.url}>{m.name}</Nav.Link>
                   )
                   
               }

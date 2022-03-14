@@ -44,7 +44,7 @@ function App() {
         <Route path="dokumen" element={<Dokumen />} />
         <Route path="/berita" element={<Pengumuman />} />
         <Route path="/pdf/:slug/:filename" element={<DocumentViewerComponent />} />
-        <Route path="/:id" element={<StaticPage />} />
+        <Route exact path="/static/:id" element={<StaticPage />} />
       </Routes>
       <Footer />
     </div>

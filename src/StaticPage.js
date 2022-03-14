@@ -28,7 +28,7 @@ const StaticPage = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [axios]);
+  }, [id]);
 
   useEffect(() => {
     console.log('LoaderComplete', LoaderComplete)
