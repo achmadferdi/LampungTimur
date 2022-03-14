@@ -47,7 +47,7 @@ export const DocumentViewerComponent = (params) =>{
 			                //   />
 		                    // </div>
                             <Fragment>
-                                <iframe className='iframe-pdf' style={{ width: '100%', height: '500px' }} src={`data:application/pdf;base64,${item.dokumen_file_data}`} title="title">
+                                <iframe className='iframe-pdf' style={{ width: '100%', height: '800px' }} src={`data:application/pdf;base64,${item.dokumen_file_data}`} title="title">
                                             Presss me: <a href={`data:application/pdf;base64,${item.dokumen_file_data}`}>Download PDF</a>
                                         </iframe>
                             </Fragment>

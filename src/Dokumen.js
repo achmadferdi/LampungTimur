@@ -44,7 +44,7 @@ export const Dokumen = (params) =>{
     }
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8" + urlTitle + "&per_page=6&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=5" + urlTitle + "&per_page=6&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -105,7 +105,7 @@ export const Dokumen = (params) =>{
                              <Card.Body>
                              <Card.Img className="imgnews" variant = 'left' width={125} height={125} src = '/dokumen.png'/>
                              <Row className="cardart">
-                             <Card.Title> {itm.dokumen_file_name} </Card.Title>
+                             <Card.Title> {handleLength (itm.dokumen_file_name,30)} </Card.Title>
                              <a href="#" className="text-muted">
                             {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>

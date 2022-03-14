@@ -54,10 +54,10 @@ export const Pengumuman = (params) => {
         
         var url = ''
     if (ArtikelByKategori == '') {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2" + urlTitle + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=5" + urlTitle + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
     }
     else {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2" + urlTitle + "&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=5" + urlTitle + "&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=6&page=" + page
     }
     axios
         .get(url)
@@ -86,7 +86,7 @@ export const Pengumuman = (params) => {
     }
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/news/categories/2")
+        .get("http://adminmesuji.embuncode.com/api/news/categories/5")
         .then(function (response) {
           setKategori(response.data.data);
           dispatch(increment());
@@ -98,7 +98,7 @@ export const Pengumuman = (params) => {
 
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=total_hit&per_page=2")
+        .get("http://adminmesuji.embuncode.com/api/news?instansi_id=5&sort_by=total_hit&per_page=2")
         .then(function (response) {
           setUmum(response.data.data.data);
           dispatch(increment());
@@ -154,7 +154,7 @@ export const Pengumuman = (params) => {
                           <Card.Body>
                           <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
                             <Row className="cardart">
-                            <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                            <Card.Title>{handleLength(item.title, 30)}</Card.Title>
                             <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>

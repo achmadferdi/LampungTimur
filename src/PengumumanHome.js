@@ -42,10 +42,10 @@ export const PengumumanHome = (params) => {
 
     var url = ''
     if (ArtikelByKategori == '') {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=5&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
     }
     else {
-      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=5&slug=" + ArtikelByKategori + "&sort_by=created_at&sort_type=desc&per_page=4&page=" + page
     }
     axios
         .get(url)
@@ -73,7 +73,7 @@ export const PengumumanHome = (params) => {
     }
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/news/categories/2")
+        .get("http://adminmesuji.embuncode.com/api/news/categories/5")
         .then(function (response) {
           setKategori(response.data.data);
           dispatch(increment());
@@ -122,7 +122,7 @@ export const PengumumanHome = (params) => {
                       <Card.Body>
                       <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
                         <Row className="cardart">
-                        <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                        <Card.Title>{handleLength(item.title, 30)}</Card.Title>
                         <a href="#" className="text-muted">
                             {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                           </a>

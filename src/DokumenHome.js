@@ -37,7 +37,7 @@ export const DokumenHome = (params) =>{
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=3")
+        .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=5&per_page=2")
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -82,7 +82,7 @@ export const DokumenHome = (params) =>{
                                   <div className='media-body'>
                                    <h5 className='mt-0'>
                                     <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>
-                                    {itm.dokumen_file_name}
+                                    {handleLength (itm.dokumen_file_name,30)}
                                     </a>
                                     </h5>
                                   <p className='text_grey mb-0 '>

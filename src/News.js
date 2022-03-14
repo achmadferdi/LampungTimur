@@ -16,7 +16,7 @@ export const News = (params) => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2&sort_by=created_at")
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=5&per_page=2&sort_by=created_at")
       .then(function (response) {
         setDataResponses(response.data.data.data);
         dispatch(increment());
@@ -48,12 +48,12 @@ export const News = (params) => {
                       <Card className= 'stylecard'>
                         <Card.Img variant = 'top' width={400} height={200} src = {item.image_file_data} />
                         <Card.Body>
-                          <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                          <Card.Title>{handleLength(item.title, 30)}</Card.Title>
                           <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>
                             <Card.Text>{(moment.locale('id-ID'), moment(item.created_at).fromNow())}</Card.Text>
-                          <Card.Text>{handleLength(item.content, 120)} ... </Card.Text>
+                            <Card.Text>{handleLength(item.intro, 120)} ... </Card.Text>
                           <Button variant="outline-primary" href={`/artikel/DetailArtikel/${item.id}`}> Baca Selengkapnya...</Button>
                         </Card.Body>
                       </Card>

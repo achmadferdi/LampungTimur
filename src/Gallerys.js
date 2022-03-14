@@ -54,7 +54,7 @@ export const Gallerys = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=2&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=5&per_page=3&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -78,21 +78,11 @@ export const Gallerys = (params) => {
 
     }
 
-    useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2")
-        .then(function (response) {
-          setVideo(response.data.data.data);
-          dispatch(increment());
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+
 
     useEffect(() => {
       console.log('LoaderComplete', LoaderComplete)
-      if (count == 2) {
+      if (count == 1) {
         setLoaderComplete(false)
       }
     }, [count, LoaderComplete]);

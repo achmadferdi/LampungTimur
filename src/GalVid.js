@@ -52,7 +52,7 @@ export const GalVid = (params) => {
       function gettingData(page) {
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2&per_page=2&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=5&per_page=2&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());

@@ -34,7 +34,7 @@ const DetailPengumuman = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=2")
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=5&per_page=2")
       .then(function (response) {
         setUmum(response.data.data.data);
         dispatch(increment());

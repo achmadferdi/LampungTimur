@@ -11,7 +11,7 @@ function Slides() {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2")
+      .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=5")
       .then(function (response) {
         setDataResponses(response.data.data.data);
         dispatch(increment());

@@ -50,7 +50,7 @@ export const Pnews = (params) => {
     }
         setDataResponses(null);
     axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2" + urlTitle + "&slug=" + ArtikelByKategori + "&sort_by=created_at&per_page=6&page=" + page)
+        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=5" + urlTitle + "&slug=" + ArtikelByKategori + "&sort_by=created_at&per_page=6&page=" + page)
         .then(function (response) {
           setDataResponses(response.data.data.data);
           dispatch(increment());
@@ -78,7 +78,7 @@ export const Pnews = (params) => {
     }
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+        .get("http://adminmesuji.embuncode.com/api/article/categories/5")
         .then(function (response) {
           setKategori(response.data.data);
           dispatch(increment());
@@ -90,7 +90,7 @@ export const Pnews = (params) => {
 
     useEffect(() => {
       axios
-        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=2&sort_by=total_hit")
+        .get("http://adminmesuji.embuncode.com/api/article?instansi_id=5&per_page=2&sort_by=total_hit")
         .then(function (response) {
           setUmum(response.data.data.data);
           dispatch(increment());
@@ -148,7 +148,7 @@ export const Pnews = (params) => {
                           <Card.Body>
                           <Card.Img className="imgnews" variant = 'left' width={300} height={200} src = {item.image_file_data} />
                             <Row className="cardart">
-                            <Card.Title>{handleLength(item.title, 20)}</Card.Title>
+                            <Card.Title>{handleLength(item.title, 30)}</Card.Title>
                             <a href="#" className="text-muted">
                                 {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
                               </a>

@@ -33,7 +33,7 @@ export const GalleryHome = (params) =>{
 
     useEffect(() => {
         axios
-          .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2")
+          .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=5")
           .then(function (response) {
             rebuildAlbum(response.data.data.data);
             dispatch(increment());
